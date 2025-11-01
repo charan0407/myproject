@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: javawebapp-service
+  namespace: test
+spec:
+  type: ClusterIP
+  selector:
+     app: javawebapp
+  ports:
+  - name: java  # just identification purpose not needed 
+#    nodePort: 32558
+    port: 80
+    targetPort: 8080
+---
+#Deployment 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebapp-deploy
+  namespace: test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: javawebapp
+  # strategy:
+  #   type: Recreate
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 30
+  template:
+    metadata:
+      name: javanwebapppod
+      labels:
+        app: javawebapp
+      namespace: test
+    spec:
+      # nodeSelector:
+      #   name: self
+      containers:
+      - name: javawebappcontainer
+        image: dockerhandson/java-web-app:1
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "1024Mi"
+        livenessProbe:
+          httpGet:
+            path: /java-web-app
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /java-web-app
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myproject-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: charan.live
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: javawebapp-service
+            port: 
+              number: 80
