@@ -1,40 +1,111 @@
-node{
-     
-    stage('SCM Checkout'){
-        git url: 'https://github.com/MithunTechnologiesDevOps/java-web-app-docker.git',branch: 'master'
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven'
     }
-    
-    stage(" Maven Clean Package"){
-      def mavenHome =  tool name: "Maven-3.5.6", type: "maven"
-      def mavenCMD = "${mavenHome}/bin/mvn"
-      sh "${mavenCMD} clean package"
-      
-    } 
-    
-    
-    stage('Build Docker Image'){
-        sh 'docker build -t dockerhandson/java-web-app .'
+
+    environment {
+        // Update these for your setup
+        GIT_URL = 'https://github.com/charan0407/myproject.git'
+        GIT_BRANCH = 'UAT'
+        REGISTRY = 'docker.io/charan0407'         // DockerHub username
+        IMAGE_NAME = 'myproject'
+        DOCKER_CREDENTIALS = 'dockerhub-creds'    // Jenkins credentials ID for Docker Hub
+        GIT_CREDENTIALS = 'github-creds'          // Jenkins credentials ID for GitHub
     }
-    
-    stage('Push Docker Image'){
-        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
-          sh "docker login -u dockerhandson -p ${Docker_Hub_Pwd}"
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                echo '📦 Cloning repository...'
+        deleteDir()
+        git branch: "${GIT_BRANCH}", url: "${GIT_URL}"
+            }
         }
-        sh 'docker push dockerhandson/java-web-app'
-     }
-     
-      stage('Run Docker Image In Dev Server'){
-        
-        def dockerRun = ' docker run  -d -p 8080:8080 --name java-web-app dockerhandson/java-web-app'
-         
-         sshagent(['DOCKER_SERVER']) {
-          sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.20.72 docker stop java-web-app || true'
-          sh 'ssh  ubuntu@172.31.20.72 docker rm java-web-app || true'
-          sh 'ssh  ubuntu@172.31.20.72 docker rmi -f  $(docker images -q) || true'
-          sh "ssh  ubuntu@172.31.20.72 ${dockerRun}"
-       }
-       
+
+        stage('Build with Maven') {
+            steps {
+                dir('Homeproject') {
+                    echo '⚙️ Running mvn clean package...'
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('Homeproject') {
+                    script {
+                        echo '🐳 Building Docker image...'
+                        sh """
+                            docker build -t $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} .
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    echo '📤 Pushing Docker image to registry...'
+
+                    withCredentials([usernamePassword(
+                        credentialsId: "${DOCKER_CREDENTIALS}",
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )]) {
+                        sh """
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin $REGISTRY
+                            docker push $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER}
+                            docker tag $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} $REGISTRY/$IMAGE_NAME:latest
+                            docker push $REGISTRY/$IMAGE_NAME:latest
+                            docker logout $REGISTRY
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Update K8s Manifest for ArgoCD') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: "${GIT_CREDENTIALS}",
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_PASS'
+                )]) {
+                    sh """
+    git config user.email "jenkins@charan.live"
+    git config user.name "Jenkins CI"
+
+    # Make sure we are on UAT branch
+    git checkout ${GIT_BRANCH}
+
+    # Pull latest changes to avoid non-fast-forward errors
+    git fetch origin ${GIT_BRANCH}
+    git rebase origin/${GIT_BRANCH}
+
+    # Update image tag in k8s.yaml
+    sed -i 's#docker.io/charan0407/myproject:.*#docker.io/charan0407/myproject:${BUILD_NUMBER}#' Homeproject/manifest/k8s.yaml
+
+    # Commit and push changes
+    git add Homeproject/manifest/k8s.yaml
+    git commit -m "Update image tag to ${BUILD_NUMBER}" || echo "No changes to commit"
+    git push https://${GIT_USER}:${GIT_PASS}@github.com/charan0407/myproject.git ${GIT_BRANCH}
+                    """
+                }
+            }
+        }
     }
-     
-     
+
+    post {
+        success {
+            echo "✅ Successfully built and pushed: $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER}"
+        }
+        failure {
+            echo "❌ Build failed!"
+        }
+    }
 }
