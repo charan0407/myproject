@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>DevOps Demo App - Sai Charan</title>
+    <title>Sai Charan — DevOps Career</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,22 +62,15 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">DevOps Demo App</a>
+            <a class="navbar-brand" href="#">Sai Charan — DevOps Career</a>
         </div>
     </div>
 </nav>
 
 <div class="jumbotron">
     <div class="container">
-        <h1>🚀 ${title}</h1>
-        <h3>
-            <c:if test="${not empty msg}">
-                Hello ${msg}, welcome to my DevOps demo!
-            </c:if>
-            <c:if test="${empty msg}">
-                Welcome to my DevOps project showcase!
-            </c:if>
-        </h3>
+        <h1>🚀 Sai Charan — DevOps Career</h1>
+        <h3>Building Scalable CI/CD and Cloud Automation Solutions</h3>
         <p>
             <a class="btn btn-light btn-lg btn-custom" href="https://github.com/charan0407" target="_blank">💻 GitHub</a>
             <a class="btn btn-success btn-lg btn-custom" href="https://www.linkedin.com/in/sai-9588923284charan/" target="_blank">🔗 LinkedIn</a>
@@ -90,12 +83,12 @@
     <div class="row">
         <div class="col-md-8 contact">
             <h2>👨‍💻 Sai Charan — DevOps Engineer</h2>
-            <p>This project demonstrates a complete CI/CD pipeline built with modern DevOps tools:</p>
+            <p>This project demonstrates a full CI/CD pipeline with industry-leading DevOps tools:</p>
 
             <ul class="tools-list">
                 <li>⚙️ <b>Jenkins</b> — Continuous Integration & Delivery</li>
                 <li>🐳 <b>Docker</b> — Containerization</li>
-                <li>☸️ <b>Kubernetes</b> — Orchestration & Deployment</li>
+                <li>☸️ <b>Kubernetes</b> — Container Orchestration</li>
                 <li>🚀 <b>Argo CD</b> — GitOps Continuous Delivery</li>
                 <li>📦 <b>Maven + Spring MVC</b> — Application Build</li>
                 <li>🌍 <b>Terraform</b> — Infrastructure as Code</li>
@@ -109,19 +102,19 @@
 
             <hr>
             <p>
-                <b>Contact:</b> sai.charan@example.com <br>
+                <b>Contact:</b> charannaga108@gmail.com <br>
                 📞 +91 9588923284
             </p>
         </div>
 
         <div class="col-md-4 text-center">
-            <h3>Tool Logos</h3>
+            <h3>Tech Stack</h3>
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" class="tech-logo" alt="Jenkins">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" class="tech-logo" alt="Docker">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" class="tech-logo" alt="Kubernetes">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" class="tech-logo" alt="Terraform">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" class="tech-logo" alt="Ansible">
-            <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original.svg" class="tech-logo" alt="AWS">
+            <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" class="tech-logo" alt="AWS"> <!-- ✅ Fixed AWS Logo -->
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg" class="tech-logo" alt="Azure">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/helm/helm-original.svg" class="tech-logo" alt="Helm">
         </div>
@@ -129,7 +122,7 @@
 </div>
 
 <footer>
-    <p>© 2025 Sai Charan | Deployed via Argo CD | Built with ❤️ using Jenkins, Docker & K8s</p>
+    <p>© Sai Charan | Deployed via Argo CD | Built using Jenkins, Docker & Kubernetes</p>
 </footer>
 
 <spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
