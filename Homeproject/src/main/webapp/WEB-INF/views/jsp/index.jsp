@@ -117,7 +117,7 @@
             <img src="https://cdn.worldvectorlogo.com/logos/amazon-web-services-2.svg" class="tech-logo" alt="AWS">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg" class="tech-logo" alt="Azure">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/helm/helm-original.svg" class="tech-logo" alt="Helm">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Argo_Project_Logo.svg" class="tech-logo" alt="Argo CD">
+            <img src="https://argo-cd.readthedocs.io/en/stable/assets/argo.png" class="tech-logo" alt="Argo CD">
         </div>
 
     </div>
