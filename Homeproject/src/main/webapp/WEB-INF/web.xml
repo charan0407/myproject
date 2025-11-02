@@ -1,35 +1,77 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
 
-	<display-name>Gradle + Spring MVC Hello World + XML</display-name>
-	<description>Spring MVC web application</description>
+    <display-name>DevOps Demo App - Spring MVC</display-name>
+    <description>Spring MVC Web Application with CI/CD Integration</description>
 
-	<!-- For web context -->
-	<servlet>
-		<servlet-name>hello-dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring-mvc-config.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+    <!-- ========================================================= -->
+    <!-- 1️⃣ UTF-8 Encoding Filter (prevents garbled emojis/symbols) -->
+    <!-- ========================================================= -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
 
-	<servlet-mapping>
-		<servlet-name>hello-dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<!-- For root context -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <!-- ========================================================= -->
+    <!-- 2️⃣ Spring Dispatcher Servlet (Main Controller Entry) -->
+    <!-- ========================================================= -->
+    <servlet>
+        <servlet-name>hello-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring-core-config.xml</param-value>
-	</context-param>
+    <servlet-mapping>
+        <servlet-name>hello-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================================= -->
+    <!-- 3️⃣ Root Context Configuration (Core Beans, Services) -->
+    <!-- ========================================================= -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring-core-config.xml</param-value>
+    </context-param>
+
+    <!-- ========================================================= -->
+    <!-- 4️⃣ Welcome Page -->
+    <!-- ========================================================= -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ========================================================= -->
+    <!-- 5️⃣ Optional: Default MIME Type Config (for emojis/icons) -->
+    <!-- ========================================================= -->
+    <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml;charset=UTF-8</mime-type>
+    </mime-mapping>
 
 </web-app>
