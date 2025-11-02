@@ -75,7 +75,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: charan.live
+  - host: home.charan.live
     http:
       paths:
       - path: /
