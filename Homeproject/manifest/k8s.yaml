@@ -43,7 +43,7 @@ spec:
       #   name: self
       containers:
       - name: javawebappcontainer
-        image: docker.io/charan0407/myproject:30
+        image: docker.io/charan0407/myproject:31
         ports:
         - containerPort: 8080
         resources:
