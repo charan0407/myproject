@@ -114,10 +114,12 @@
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" class="tech-logo" alt="Kubernetes">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" class="tech-logo" alt="Terraform">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ansible/ansible-original.svg" class="tech-logo" alt="Ansible">
-            <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" class="tech-logo" alt="AWS"> <!-- ✅ Fixed AWS Logo -->
+            <img src="https://cdn.worldvectorlogo.com/logos/amazon-web-services-2.svg" class="tech-logo" alt="AWS">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg" class="tech-logo" alt="Azure">
             <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/helm/helm-original.svg" class="tech-logo" alt="Helm">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Argo_Project_Logo.svg" class="tech-logo" alt="Argo CD">
         </div>
+
     </div>
 </div>
 
