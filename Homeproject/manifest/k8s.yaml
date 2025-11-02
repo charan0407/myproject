@@ -57,14 +57,14 @@ spec:
           httpGet:
             path: /java-web-app
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 30
+          initialDelaySeconds: 10
+          periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /java-web-app
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
 ---
@@ -75,7 +75,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: home.charan.live
+  - host: charan.live
     http:
       paths:
       - path: /
