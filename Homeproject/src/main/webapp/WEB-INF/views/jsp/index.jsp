@@ -69,7 +69,12 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h1>🚀 Sai Charan — DevOps Career</h1>
+<h1>
+    <img src="https://drive.google.com/uc?export=view&id=1F-_D-gnORhgCn8qwlcQRAlP_vr9jjcU0" 
+         alt="Sai Charan" 
+         style="height:90px; width:90px; border-radius:50%; vertical-align:middle; margin-right:15px; box-shadow:0 0 10px rgba(0,0,0,0.3);">
+    Sai Charan — DevOps Career
+</h1>
         <h3>Building Scalable CI/CD and Cloud Automation Solutions</h3>
         <p>
             <a class="btn btn-light btn-lg btn-custom" href="https://github.com/charan0407" target="_blank">💻 GitHub</a>
